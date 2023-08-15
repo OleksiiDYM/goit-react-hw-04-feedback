@@ -1,22 +1,27 @@
+import { Fragment } from 'react';
+import sass from './Statistics.module.scss';
 import PropTypes from 'prop-types';
 
-const Statistics = ({ good, neutral, bad, total, positivePercentage }) => {
-  return (
-    <div>
-      <p>Good:{good}</p>
-      <p>Neutral:{neutral}</p>
-      <p>Bad:{bad}</p>
-      <p>Total:{total}</p>
-      <p>Positive feedback:{positivePercentage} %</p>
-    </div>
-  );
-};
+export const Statistics = ({ state, total, positivePercentage }) => (
+  <Fragment>
+    {Object.keys(state).map(el => (
+      <p key={el} name={el} className={sass.statistics__item}>
+        {el}: {state[el]}
+      </p>
+    ))}
+    <p className={sass.statistics__item}>Total: {total()}</p>
+    <p className={sass.statistics__item}>
+      Positive feedback: {positivePercentage()}%
+    </p>
+  </Fragment>
+);
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  state: PropTypes.shape({
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+  }),
+  total: PropTypes.func.isRequired,
   positivePercentage: PropTypes.func.isRequired,
 };
-export default Statistics;

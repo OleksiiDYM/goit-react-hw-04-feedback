@@ -1,14 +1,10 @@
-import React from 'react';
+import sass from './Notification.module.scss';
 import PropTypes from 'prop-types';
 
-const Notification = ({ message }) => {
-  return (
-    <div>
-      <h4>{message}</h4>
-    </div>
-  );
-};
+export const Notification = ({ message }) => (
+  <p className={sass.notification}>{message}</p>
+);
+
 Notification.propTypes = {
   message: PropTypes.string.isRequired,
 };
-export default Notification;
